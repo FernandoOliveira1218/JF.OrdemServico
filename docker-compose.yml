@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ordem_servico_db
+    ports:
+      - "5432:5432"
+
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  api:
+    build:
+      context: .
+      dockerfile: ./docker/api.Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+      - rabbitmq
+      - mongo
+
+  worker:
+    build:
+      context: .
+      dockerfile: ./docker/worker.Dockerfile
+    depends_on:
+      - rabbitmq
+      - mongo
+
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/web.Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
