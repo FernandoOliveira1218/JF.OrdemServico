@@ -1,14 +1,13 @@
-﻿using JF.OrdemServico.Domain.Common;
-using JF.OrdemServico.Domain.Entities;
+﻿using JF.OrdemServico.Domain.Entities;
 using JF.OrdemServico.Domain.ValueObjects;
 
 namespace JF.OrdemServico.Domain.Repositories;
 
 public interface IChamadoRepository : IRepositoryBase<Chamado>
 {
-    Task<IEnumerable<Chamado>> FiltrarPorStatusAsync(ChamadoStatus status);
+    Task<IEnumerable<Chamado>> ObterPorStatusAsync(ChamadoStatus status);
 
-    Task<IEnumerable<Chamado>> FiltrarPorPrioridadeAsync(ChamadoPrioridade prioridade);
+    Task<IEnumerable<Chamado>> ObterPorPrioridadeAsync(ChamadoPrioridade prioridade);
 
-    Task<IEnumerable<Chamado>> FiltrarPorClienteAsync(Guid clienteId);
+    Task<IEnumerable<Chamado>> ObterPorClienteAsync(Guid clienteId);
 }

@@ -2,7 +2,7 @@
 
 namespace JF.OrdemServico.Domain.Common;
 
-public abstract class ValueObjectBase
+public abstract class ValueObjectBase<T> where T : class //ValueObjectBase<T>
 {
     public string Value { get; private set; }
 
@@ -16,7 +16,9 @@ public abstract class ValueObjectBase
 
     public override string ToString() => Name;
 
-    public static IEnumerable<T> GetAll<T>() where T : ValueObjectBase
+    public static implicit operator string(ValueObjectBase<T> value) => value.Value;
+
+    public static IEnumerable<T> GetAll()
     {
         return typeof(T)
             .GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
@@ -25,8 +27,8 @@ public abstract class ValueObjectBase
             .Cast<T>();
     }
 
-    public static T FromValue<T>(string value) where T : ValueObjectBase
+    public static T FromValue(string value)
     {
-        return GetAll<T>().FirstOrDefault(x => x.Value.Equals(value)) ?? throw new ArgumentException($"Valor inválido para {typeof(T).Name}: {value}");
+        return GetAll().FirstOrDefault(x => x.Value.Equals(value)) ?? throw new ArgumentException($"Valor inválido para {typeof(T).Name}: {value}");
     }
 }

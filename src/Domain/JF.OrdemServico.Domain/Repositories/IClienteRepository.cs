@@ -1,5 +1,4 @@
-﻿using JF.OrdemServico.Domain.Common;
-using JF.OrdemServico.Domain.Entities;
+﻿using JF.OrdemServico.Domain.Entities;
 
 namespace JF.OrdemServico.Domain.Repositories;
 

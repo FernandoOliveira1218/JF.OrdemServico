@@ -2,7 +2,7 @@
 
 namespace JF.OrdemServico.Domain.ValueObjects;
 
-public class ChamadoStatus : ValueObjectBase
+public class ChamadoStatus : ValueObjectBase<ChamadoStatus>
 {
     private ChamadoStatus(string value, string name) : base(value, name) { }
 
