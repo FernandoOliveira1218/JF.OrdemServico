@@ -1,5 +1,5 @@
 ﻿using JF.OrdemServico.Domain.Common;
-using JF.OrdemServico.Domain.Repositories;
+using JF.OrdemServico.Domain.Interfaces.Repositories;
 using JF.OrdemServico.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 

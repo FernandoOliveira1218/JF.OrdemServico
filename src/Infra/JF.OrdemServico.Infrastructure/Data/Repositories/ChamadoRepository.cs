@@ -1,5 +1,5 @@
 ﻿using JF.OrdemServico.Domain.Entities;
-using JF.OrdemServico.Domain.Repositories;
+using JF.OrdemServico.Domain.Interfaces.Repositories;
 using JF.OrdemServico.Domain.ValueObjects;
 using JF.OrdemServico.Infra.Data.Common;
 using JF.OrdemServico.Infra.Data.Context;
