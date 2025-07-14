@@ -1,4 +1,4 @@
-﻿namespace JF.OrdemServico.Domain.Repositories;
+﻿namespace JF.OrdemServico.Domain.Interfaces.Repositories;
 
 public interface IRepositoryBase<T> where T : class
 {
