@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JF.OrdemServico.Domain", "s
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{15879CB8-7A3F-14CE-5390-BDD4BAA5791B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JF.OrdemServico.Infra", "src\Infra\JF.OrdemServico.Infrastructure\JF.OrdemServico.Infra.csproj", "{98BB4BFC-CF2B-42FD-A738-F609B79BF84E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JF.OrdemServico.Infra", "src\Infra\JF.OrdemServico.Infra\JF.OrdemServico.Infra.csproj", "{98BB4BFC-CF2B-42FD-A738-F609B79BF84E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
