@@ -2,7 +2,7 @@
 
 namespace JF.OrdemServico.Domain.Common;
 
-public abstract class ValueObjectBase<T> where T : class //ValueObjectBase<T>
+public abstract class ValueObjectBase<T> where T : ValueObjectBase<T>
 {
     public string Value { get; private set; }
 

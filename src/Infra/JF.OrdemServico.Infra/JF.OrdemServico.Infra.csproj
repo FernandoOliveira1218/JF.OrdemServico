@@ -16,4 +16,8 @@
     <ProjectReference Include="..\..\Domain\JF.OrdemServico.Domain\JF.OrdemServico.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
