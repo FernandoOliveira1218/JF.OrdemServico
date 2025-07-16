@@ -1,5 +1,5 @@
-using JF.OrdemServico.Application.Extensions;
-using JF.OrdemServico.Infra.Extensions;
+
+using JF.OrdemServico.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,9 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Services
-    .AddApplication()
-    .AddInfra(builder.Configuration);
+builder.Services.AddControllers();
+
+builder.Services.AddConfiguration(builder.Configuration);
 
 var app = builder.Build();
 
@@ -19,6 +19,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+app.UseAppConfiguration();
+
+app.MapControllers();
 
 app.Run();
