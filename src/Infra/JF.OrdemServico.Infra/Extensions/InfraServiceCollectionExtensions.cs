@@ -13,7 +13,7 @@ public static class InfraServiceCollectionExtensions
     public static IServiceCollection AddInfra(this IServiceCollection services, IConfiguration configuration)
     {
         // Configuração do DbContext com PostgreSQL
-        services.AddDbContext<OrdemServicoDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+        services.AddDbContext<OrdemServicoDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PostgreSql")));
 
         // Repositórios
         services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
