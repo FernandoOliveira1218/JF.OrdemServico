@@ -1,0 +1,37 @@
+services:
+  postgres_prod:
+    image: postgres:16
+    container_name: ordemservico_postgres_prod
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: OrdemServicoDb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata_prod:/var/lib/postgresql/data
+
+  mongodb_prod:
+    image: mongo:7
+    container_name: ordemservico_mongodb_prod
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodata_prod:/data/db
+
+  rabbitmq_prod:
+    image: rabbitmq:3-management
+    container_name: ordemservico_rabbitmq_prod
+    restart: always
+    ports:
+      - "15672:15672"  # UI Admin
+      - "5672:5672"    # Comunicação
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+
+volumes:
+  pgdata_prod:
+  mongodata_prod:
