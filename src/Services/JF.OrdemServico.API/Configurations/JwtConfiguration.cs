@@ -8,9 +8,9 @@ public static class JwtConfiguration
 {
     public static IServiceCollection AddJwtConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
-        var key = configuration["Jwt:Key"] ?? throw new Exception("JWT Key não foi encontrado");
-        var issuer = configuration["Jwt:Issuer"];
-        var audience = configuration["Jwt:Audience"];
+        var key = configuration["JwtSettings:SecretKey"] ?? throw new Exception("JWT Key não foi encontrado");
+        var issuer = configuration["JwtSettings:Issuer"];
+        var audience = configuration["JwtSettings:Audience"];
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>

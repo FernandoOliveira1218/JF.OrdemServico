@@ -7,9 +7,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="15.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.7" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
-		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.7" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.7" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
 	</ItemGroup>
@@ -17,11 +18,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\Application\JF.OrdemServico.Application\JF.OrdemServico.Application.csproj" />
 		<ProjectReference Include="..\..\Infra\JF.OrdemServico.Infra\JF.OrdemServico.Infra.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Controllers\" />
-	  <Folder Include="Middlewares\" />
 	</ItemGroup>
 
 </Project>

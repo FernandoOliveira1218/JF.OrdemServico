@@ -9,7 +9,7 @@ public class ApiResponse<T>
     public T? Data { get; set; }
     public HttpStatusCode StatusCode { get; set; }
 
-    public static ApiResponse<T> Ok(T data, string? message = null)
+    public static ApiResponse<T> Ok(T? data, string? message = null)
     {
         return new()
         {

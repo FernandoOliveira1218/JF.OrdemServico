@@ -1,6 +1,8 @@
-﻿using JF.OrdemServico.Infra.Extensions;
+﻿using JF.OrdemServico.API.Configurations;
+using JF.OrdemServico.API.DTOs.Mappings;
+using JF.OrdemServico.API.Filters;
 using JF.OrdemServico.Application.Extensions;
-using JF.OrdemServico.API.Configurations;
+using JF.OrdemServico.Infra.Extensions;
 
 namespace JF.OrdemServico.API.Extensions;
 
@@ -12,9 +14,23 @@ public static class ServiceCollectionExtensions
         services.AddInfra(config);
 
         services.AddJwtConfiguration(config);
-        services.AddSwaggerConfiguration();
         services.AddCorsConfiguration();
         services.AddApiVersioningConfiguration();
+
+        services.AddSwaggerConfiguration();
+        services.AddEndpointsApiExplorer();
+
+        services.AddAutoMapper
+        (
+            cfg =>
+            cfg.AddProfile<ChamadoProfile>()
+        );
+
+        services.AddScoped<ModelValidationFilter>();
+        services.AddControllers(options =>
+        {
+            options.Filters.Add<ModelValidationFilter>();
+        });
 
         return services;
     }
