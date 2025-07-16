@@ -1,5 +1,5 @@
 services:
-  postgres_prod:
+  postgres_dev:
     container_name: ordemservico_postgres_dev
     environment:
       POSTGRES_USER: postgres
@@ -10,14 +10,14 @@ services:
     volumes:
       - pgdata_dev:/var/lib/postgresql/data
 
-  mongodb_prod:
+  mongodb_dev:
     container_name: ordemservico_mongodb_dev
     ports:
       - "27018:27017"
     volumes:
       - mongodata_dev:/data/db
 
-  rabbitmq_prod:
+  rabbitmq_dev:
     container_name: ordemservico_rabbitmq_dev
     ports:
       - "15673:15672"
