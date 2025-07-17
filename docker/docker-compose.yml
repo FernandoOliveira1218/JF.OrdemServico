@@ -48,6 +48,11 @@ services:
         - postgres_prod
         - mongodb_prod
         - rabbitmq_prod
+        
+networks:
+  ordemservico_net:
+    driver: bridge
+    
 volumes:
   pgdata_prod:
   mongodata_prod:
