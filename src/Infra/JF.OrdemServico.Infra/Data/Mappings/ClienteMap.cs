@@ -11,12 +11,9 @@ public class ClienteMap : EntityMapBase<Cliente>
 
         builder.ToTable("Clientes");
 
-        builder.Property(c => c.Nome)
-            .IsRequired()
-            .HasMaxLength(100);
-
-        builder.Property(c => c.Email)
-            .IsRequired()
-            .HasMaxLength(100);
+        builder.Property(c => c.Nome).IsRequired().HasMaxLength(100);
+        builder.Property(c => c.Email).IsRequired().HasMaxLength(100);
+        builder.Property(c => c.RazaoSocial).IsRequired().HasMaxLength(150);
+        builder.Property(c => c.Cnpj).IsRequired().HasMaxLength(20);
     }
 }

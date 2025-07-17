@@ -1,6 +1,5 @@
 
 using JF.OrdemServico.API.Extensions;
-using JF.OrdemServico.API.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
