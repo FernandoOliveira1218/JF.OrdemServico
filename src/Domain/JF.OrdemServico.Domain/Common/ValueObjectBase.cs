@@ -31,4 +31,24 @@ public abstract class ValueObjectBase<T> where T : ValueObjectBase<T>
     {
         return GetAll().FirstOrDefault(x => x.Value.Equals(value)) ?? throw new ArgumentException($"Valor inválido para {typeof(T).Name}: {value}");
     }
+
+    public static bool TryParse(string? input, out T? result, out string? error)
+    {
+        result = null;
+        error = null;
+
+        if (string.IsNullOrWhiteSpace(input))
+            return true;
+
+        try
+        {
+            result = FromValue(input);
+            return true;
+        }
+        catch (ArgumentException)
+        {
+            error = $"Valor inválido para {typeof(T).Name.Replace("Chamado", "")}: {input}";
+            return false;
+        }
+    }
 }

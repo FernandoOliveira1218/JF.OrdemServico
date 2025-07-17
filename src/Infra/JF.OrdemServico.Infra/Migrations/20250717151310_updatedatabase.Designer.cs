@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JF.OrdemServico.Infra.Migrations
 {
     [DbContext(typeof(OrdemServicoDbContext))]
-    [Migration("20250716211359_AjusteSeedComHashFixo")]
-    partial class AjusteSeedComHashFixo
+    [Migration("20250717151310_updatedatabase")]
+    partial class UpdateDataBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -194,7 +194,7 @@ namespace JF.OrdemServico.Infra.Migrations
                             Email = "admin@admin.com",
                             Login = "admin",
                             Nome = "Administrador",
-                            SenhaHash = "$2a$11$lpNSOvFhdZ6zYpPWbdZJjOtR67cGQ1QYRU2dxepEQvTmowIUlFzAy"
+                            SenhaHash = "$2a$11$4LC85MBAVfGLbtymgz8VcetHq7NMg/wUQppvHomk6whsCJXG3.ony"
                         });
                 });
 

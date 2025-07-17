@@ -11,18 +11,19 @@ public class ChamadoRepository : RepositoryBase<Chamado>, IChamadoRepository
 {
     public ChamadoRepository(OrdemServicoDbContext context) : base(context) { }
 
-    public async Task<IEnumerable<Chamado>> ObterPorStatusAsync(ChamadoStatus status)
+    public async Task<IEnumerable<Chamado>> BuscarPorFiltrosAsync(ChamadoStatus? status, ChamadoPrioridade? prioridade, Guid? clienteId)
     {
-        return await _dbSet.Where(c => c.Status.Value == status).ToListAsync();
-    }
-    
-    public async Task<IEnumerable<Chamado>> ObterPorPrioridadeAsync(ChamadoPrioridade prioridade)
-    {
-        return await _dbSet.Where(c => c.Prioridade.Value == prioridade).ToListAsync();
-    }
+        var query = _dbSet.AsQueryable();
 
-    public async Task<IEnumerable<Chamado>> ObterPorClienteAsync(Guid clienteId)
-    {
-        return await _dbSet.Where(c => c.Cliente.Id == clienteId).ToListAsync();
+        if (status != null)
+            query = query.Where(c => c.Status == status.Value);
+
+        if (prioridade != null)
+            query = query.Where(c => c.Prioridade == prioridade.Value);
+
+        if (clienteId.HasValue)
+            query = query.Where(c => c.ClienteId == clienteId.Value);
+
+        return await query.ToListAsync();
     }
 }
