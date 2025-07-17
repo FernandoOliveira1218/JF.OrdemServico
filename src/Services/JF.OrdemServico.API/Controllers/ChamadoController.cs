@@ -2,6 +2,7 @@
 using JF.OrdemServico.API.DTOs.Response.Chamados;
 using JF.OrdemServico.Domain.Entities;
 using JF.OrdemServico.Domain.Interfaces.Services;
+using JF.OrdemServico.Domain.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -32,9 +33,19 @@ public class ChamadoController : ApiControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Listar()
+    public async Task<IActionResult> Get([FromQuery] string? status, [FromQuery] string? prioridade, [FromQuery] Guid? clienteId)
     {
-        var chamados = await _chamadoService.GetAllAsync();
+        if (!ChamadoStatus.TryParse(status, out var statusVO, out var statusError))
+        {
+            return ResponseFail(statusError ?? "Erro ao converter o status do chamado");
+        }
+            
+        if (!ChamadoPrioridade.TryParse(prioridade, out var prioridadeVO, out var prioridadeError))
+        {
+            return ResponseFail(prioridadeError ?? "Erro ao converter a prioridade do chamado");
+        }
+            
+        var chamados = await _chamadoService.BuscarComFiltrosAsync(statusVO, prioridadeVO, clienteId);
 
         var dtos = _mapper.Map<IEnumerable<ChamadoResponse>>(chamados);
 

@@ -9,9 +9,15 @@ namespace JF.OrdemServico.Application.Services;
 
 public class ChamadoService : ServiceBase<Chamado>, IChamadoService
 {
+    private new readonly IChamadoRepository _repository;
     public ChamadoService(IChamadoRepository repository, IValidator<Chamado> validator) : base(repository, validator)
     {
+        _repository = repository;
+    }
 
+    public async Task<IEnumerable<Chamado>> BuscarComFiltrosAsync(ChamadoStatus? status, ChamadoPrioridade? prioridade, Guid? clienteId)
+    {
+        return await _repository.BuscarPorFiltrosAsync(status, prioridade, clienteId);
     }
 
     public async Task<Chamado> FinalizarAsync(Guid id, string? observacoes, DateTime? dataFinalizacao)

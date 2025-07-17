@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace JF.OrdemServico.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class AjusteSeedComHashFixo : Migration
+    public partial class updatedatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -84,7 +85,7 @@ namespace JF.OrdemServico.Infra.Migrations
             migrationBuilder.InsertData(
                 table: "Usuarios",
                 columns: new[] { "Id", "DataAlteracao", "DataCriacao", "Email", "Login", "Nome", "SenhaHash" },
-                values: new object[] { new Guid("22222222-2222-2222-2222-222222222222"), null, new DateTime(2025, 7, 16, 0, 0, 0, 0, DateTimeKind.Utc), "admin@admin.com", "admin", "Administrador", "$2a$11$lpNSOvFhdZ6zYpPWbdZJjOtR67cGQ1QYRU2dxepEQvTmowIUlFzAy" });
+                values: new object[] { new Guid("22222222-2222-2222-2222-222222222222"), null, new DateTime(2025, 7, 16, 0, 0, 0, 0, DateTimeKind.Utc), "admin@admin.com", "admin", "Administrador", "$2a$11$4LC85MBAVfGLbtymgz8VcetHq7NMg/wUQppvHomk6whsCJXG3.ony" });
 
             migrationBuilder.InsertData(
                 table: "ClientesUsuarios",
