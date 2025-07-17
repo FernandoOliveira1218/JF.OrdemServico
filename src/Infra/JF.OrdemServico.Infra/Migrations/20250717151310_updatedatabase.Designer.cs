@@ -13,7 +13,7 @@ namespace JF.OrdemServico.Infra.Migrations
 {
     [DbContext(typeof(OrdemServicoDbContext))]
     [Migration("20250717151310_updatedatabase")]
-    partial class updatedatabase
+    partial class UpdateDataBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
