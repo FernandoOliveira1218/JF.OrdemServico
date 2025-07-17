@@ -29,7 +29,7 @@ public static class OrdemServicoSeed
             Nome = "Administrador",
             Email = "admin@admin.com",
             Login = "admin",
-            SenhaHash = "$2a$11$lpNSOvFhdZ6zYpPWbdZJjOtR67cGQ1QYRU2dxepEQvTmowIUlFzAy",
+            SenhaHash = "$2a$11$4LC85MBAVfGLbtymgz8VcetHq7NMg/wUQppvHomk6whsCJXG3.ony",
             DataCriacao = dataCriacao,
             DataAlteracao = (DateTime?)null
         });

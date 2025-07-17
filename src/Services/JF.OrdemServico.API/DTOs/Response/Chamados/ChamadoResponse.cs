@@ -1,14 +1,26 @@
 ﻿namespace JF.OrdemServico.API.DTOs.Response.Chamados;
 
 public record ChamadoResponse
-(
-    Guid Id,
-    string Titulo,
-    string Descricao,
-    string Status,
-    Guid ClienteId,
-    Guid ResponsavelId,
-    DateTime CriadoEm,
-    DateTime? FinalizadoEm,
-    string? ObservacoesFinalizacao
-);
+{
+    public Guid? Id { get; init; }
+
+    public Guid? ClienteId { get; init; }
+
+    public Guid? ResponsavelId { get; init; }
+
+    public string? Titulo { get; init; }
+
+    public string? Descricao { get; init; }
+
+    public string? Status { get; init; }
+
+    public string? ObservacoesFinalizacao { get; init; }
+
+    public DateTime? CriadoEm { get; init; }
+
+    public DateTime? FinalizadoEm { get; init; }
+
+
+    // Obrigatório para o AutoMapper
+    public ChamadoResponse() { }
+}

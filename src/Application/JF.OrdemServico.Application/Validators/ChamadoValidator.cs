@@ -7,9 +7,9 @@ public class ChamadoValidator : AbstractValidator<Chamado>
 {
     public ChamadoValidator()
     {
-        RuleFor(x => x.Cliente)
+        RuleFor(x => x.ClienteId)
             .NotNull()
-            .WithMessage("Cliente é obrigatório.");
+            .WithMessage("ClienteId é obrigatório.");
 
         RuleFor(x => x.Descricao)
             .NotEmpty()

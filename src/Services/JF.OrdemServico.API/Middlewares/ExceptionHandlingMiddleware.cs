@@ -1,7 +1,8 @@
-﻿using JF.OrdemServico.API.DTOs.Response;
+﻿using FluentValidation;
+using JF.OrdemServico.API.DTOs.Response;
 using System.Net;
 using System.Text.Json;
-using FluentValidation;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace JF.OrdemServico.API.Middleware;
 
@@ -41,7 +42,7 @@ public class ExceptionHandlingMiddleware
         {
             case ValidationException validationException:
                 statusCode = HttpStatusCode.BadRequest;
-                message = string.Join(" | ", validationException.Errors.Select(e => e.ErrorMessage));
+                message = "Erro(s) de validação encontrados.";
                 break;
             case KeyNotFoundException:
                 statusCode = HttpStatusCode.NotFound;
@@ -55,8 +56,38 @@ public class ExceptionHandlingMiddleware
 
         context.Response.StatusCode = (int)statusCode;
 
-        var response = ApiResponse<object>.Fail(message, statusCode);
+        var response = ApiResponse<object>.Fail(GetErrorsFromException(exception), statusCode, message);
 
-        return context.Response.WriteAsync(JsonSerializer.Serialize(response));
+        var json = JsonSerializer.Serialize(response, options: new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            WriteIndented = false
+        });
+
+        return context.Response.WriteAsync(json);
+    }
+
+    private static IEnumerable<string> GetErrorsFromException(Exception ex)
+    {
+        if (ex is ValidationException validationException)
+        {
+            // Pega todas as mensagens de erro do FluentValidation
+            return validationException.Errors.Select(e => e.ErrorMessage);
+        }
+        else if (ex is AggregateException aggregateException)
+        {
+            // Caso seja uma AggregateException, extrai mensagens das inner exceptions
+            return aggregateException.InnerExceptions.SelectMany(inner => GetErrorsFromException(inner));
+        }
+        else if (ex.InnerException != null)
+        {
+            // Se tiver InnerException, extrai dela recursivamente
+            return GetErrorsFromException(ex.InnerException);
+        }
+        else
+        {
+            // Caso geral: retorna a mensagem da exceção atual
+            return [ex.Message];
+        }
     }
 }

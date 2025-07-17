@@ -6,6 +6,7 @@ public class ApiResponse<T>
 {
     public bool Success { get; set; }
     public string? Message { get; set; }
+    public IEnumerable<string>? Errors { get; set; }
     public T? Data { get; set; }
     public HttpStatusCode StatusCode { get; set; }
 
@@ -33,13 +34,32 @@ public class ApiResponse<T>
 
     public static ApiResponse<T> Fail(string message, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
     {
-
         return new()
         {
             Success = false,
             Message = message,
-            Data = default,
             StatusCode = statusCode
+        };
+    }
+
+    public static ApiResponse<T> Fail(IEnumerable<string> errors, HttpStatusCode statusCode = HttpStatusCode.BadRequest, string? message = null)
+    {
+        return new()
+        {
+            Success = false,
+            Errors = errors,
+            Message = message ?? "Ocorreu um erro.",
+            StatusCode = statusCode
+        };
+    }
+
+    public static ApiResponse<T> NotFound(string message = "Recurso não encontrado")
+    {
+        return new()
+        {
+            Success = false,
+            Message = message,
+            StatusCode = HttpStatusCode.NotFound
         };
     }
 }

@@ -31,11 +31,13 @@ public class RepositoryBase<T> : IRepositoryBase<T> where T : EntityBase
     public async Task RemoveAsync(Guid id)
     {
         var entidade = await GetById(id);
-        if (entidade is not null)
+        if (entidade is null)
         {
-            _dbSet.Remove(entidade);
-            await _context.SaveChangesAsync();
+            throw new KeyNotFoundException($"Entidade com id {id} não encontrada.");
         }
+            
+        _dbSet.Remove(entidade);
+        await _context.SaveChangesAsync();
     }
 
     public async Task<T?> GetById(Guid id)

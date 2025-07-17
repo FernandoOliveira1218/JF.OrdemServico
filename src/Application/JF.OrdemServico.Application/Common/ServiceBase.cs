@@ -81,6 +81,12 @@ public abstract class ServiceBase<TEntity> : IServiceBase<TEntity> where TEntity
             var valorOrigem = prop.GetValue(origem);
             var valorDestino = prop.GetValue(destino);
 
+            // Ignora Guid.Empty
+            if (prop.PropertyType == typeof(Guid) && valorOrigem is Guid guidValor && guidValor == Guid.Empty)
+            {
+                continue;
+            }
+
             bool valoresDiferentes = valorOrigem == null
                 ? valorDestino != null
                 : !valorOrigem.Equals(valorDestino);
