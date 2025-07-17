@@ -33,6 +33,7 @@ services:
       RABBITMQ_DEFAULT_PASS: admin
 
   api_prod:
+    container_name: ordemservico_api_prod
     build:
       context: ..                  # raiz do projeto
       dockerfile: docker/api.Dockerfile
