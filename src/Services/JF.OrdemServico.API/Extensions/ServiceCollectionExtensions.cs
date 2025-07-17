@@ -2,6 +2,7 @@
 using JF.OrdemServico.API.DTOs.Mappings;
 using JF.OrdemServico.API.Filters;
 using JF.OrdemServico.Application.Extensions;
+using JF.OrdemServico.Domain.Common;
 using JF.OrdemServico.Infra.Extensions;
 
 namespace JF.OrdemServico.API.Extensions;
@@ -13,6 +14,8 @@ public static class ServiceCollectionExtensions
         services.AddApplication();
         services.AddInfra(config);
 
+        services.AddScoped<NotificationContext>();
+
         services.AddJwtConfiguration(config);
         services.AddCorsConfiguration();
         services.AddApiVersioningConfiguration();
@@ -23,14 +26,17 @@ public static class ServiceCollectionExtensions
         services.AddAutoMapper
         (
             cfg =>
-            cfg.AddProfile<ChamadoProfile>()
+            cfg.AddProfile<MapProfile>()
         );
 
         services.AddScoped<ModelValidationFilter>();
         services.AddControllers(options =>
         {
             options.Filters.Add<ModelValidationFilter>();
-        });
+        }).AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+        }); ;
 
         return services;
     }

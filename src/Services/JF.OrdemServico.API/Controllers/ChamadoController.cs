@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using JF.OrdemServico.API.DTOs.Request.Chamados;
+﻿using JF.OrdemServico.API.DTOs.Request.Chamados;
 using JF.OrdemServico.API.DTOs.Response.Chamados;
 using JF.OrdemServico.Domain.Entities;
 using JF.OrdemServico.Domain.Interfaces.Services;
@@ -17,7 +16,7 @@ public class ChamadoController : ApiControllerBase
 {
     private readonly IChamadoService _chamadoService;
 
-    public ChamadoController(IMapper mapper, IChamadoService chamadoService) : base(mapper)
+    public ChamadoController(IServiceProvider serviceProvider, IChamadoService chamadoService) : base(serviceProvider)
     {
         _chamadoService = chamadoService;
     }
@@ -27,7 +26,7 @@ public class ChamadoController : ApiControllerBase
     {
         var chamado = await _chamadoService.GetByIdAsync(id);
 
-        var dto = Mapper.Map<ChamadoResponse>(chamado);
+        var dto = _mapper.Map<ChamadoResponse>(chamado);
 
         return ResponseResult(dto);
     }
@@ -37,7 +36,7 @@ public class ChamadoController : ApiControllerBase
     {
         var chamados = await _chamadoService.GetAllAsync();
 
-        var dtos = Mapper.Map<IEnumerable<ChamadoResponse>>(chamados);
+        var dtos = _mapper.Map<IEnumerable<ChamadoResponse>>(chamados);
 
         return ResponseResult(dtos);
     }
@@ -45,11 +44,11 @@ public class ChamadoController : ApiControllerBase
     [HttpPost]
     public async Task<IActionResult> Criar([FromBody] CreateChamadoRequest request)
     {
-        var entity = Mapper.Map<Chamado>(request);
+        var entity = _mapper.Map<Chamado>(request);
 
         await _chamadoService.CreateAsync(entity);
 
-        var dto = Mapper.Map<ChamadoResponse>(entity);
+        var dto = _mapper.Map<ChamadoResponse>(entity);
 
         return ResponseCreated(dto, "Chamado criado com sucesso");
     }
@@ -60,10 +59,10 @@ public class ChamadoController : ApiControllerBase
         // Copia o ID da rota para o DTO
         var dtoComId = request with { Id = id };
 
-        var chamado = Mapper.Map<Chamado>(request);
+        var chamado = _mapper.Map<Chamado>(dtoComId);
 
         var atualizado = await _chamadoService.UpdateAsync(chamado);
-        var dto = Mapper.Map<ChamadoResponse>(atualizado);
+        var dto = _mapper.Map<ChamadoResponse>(atualizado);
 
         return ResponseResult(dto, "Chamado atualizado com sucesso");
     }
@@ -73,7 +72,7 @@ public class ChamadoController : ApiControllerBase
     {
         var finalizado = await _chamadoService.FinalizarAsync(id, request.Observacoes, request.DataFinalizacao);
 
-        var dto = Mapper.Map<ChamadoResponse>(finalizado);
+        var dto = _mapper.Map<ChamadoResponse>(finalizado);
 
         return ResponseResult(dto, "Chamado finalizado com sucesso");
     }

@@ -10,5 +10,7 @@ public class OrdemServicoDbContext : DbContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(OrdemServicoDbContext).Assembly);
         base.OnModelCreating(modelBuilder);
+
+        OrdemServicoSeed.Seed(modelBuilder);
     }
 }

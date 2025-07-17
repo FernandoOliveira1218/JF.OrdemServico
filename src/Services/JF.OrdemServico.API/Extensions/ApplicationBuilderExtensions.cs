@@ -23,6 +23,8 @@ public static class ApplicationBuilderExtensions
 
         app.UseCors("AllowAll");
 
+        app.UseRouting();
+
         app.UseAuthentication();
         app.UseAuthorization();
 

@@ -11,6 +11,12 @@ public abstract class EntityBase
         DataCriacao = DateTime.UtcNow;
     }
 
+    public void GerarId()
+    {
+        if (Id == Guid.Empty)
+            Id = Guid.NewGuid();
+    }
+
     public void AtualizarDataAlteracao()
     {
         DataAlteracao = DateTime.UtcNow;
