@@ -31,23 +31,24 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin
+
   ordemservico_api_prod:
-      build:
-        context: .
-        dockerfile: api.Dockerfile  # novo nome aqui
-      ports:
-        - "5000:80"
-        - "5001:443"
-      volumes:
-        - ./https:/https:ro
-      environment:
-        - ASPNETCORE_ENVIRONMENT=Production
-      networks:
-        - ordemservico_net
-      depends_on:
-        - postgres_prod
-        - mongodb_prod
-        - rabbitmq_prod
+    build:
+      context: ..                  # raiz do projeto
+      dockerfile: docker/api.Dockerfile
+    ports:
+      - "5000:80"
+      - "5001:443"
+    volumes:
+      - ./https:/https:ro
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    networks:
+      - ordemservico_net
+    depends_on:
+      - postgres_prod
+      - mongodb_prod
+      - rabbitmq_prod
         
 networks:
   ordemservico_net:
