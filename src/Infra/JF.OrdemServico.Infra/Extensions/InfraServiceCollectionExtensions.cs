@@ -18,9 +18,15 @@ public static class InfraServiceCollectionExtensions
     public static IServiceCollection AddInfra(this IServiceCollection services, IConfiguration configuration)
     {
         // Configuração do DbContext com PostgreSQL
-        services.AddDbContext<OrdemServicoDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PostgreSql")));
         services.AddSingleton<MongoContext>();
-        
+        services.AddDbContext<OrdemServicoDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PostgreSql"), npgsqlOptions =>
+        {
+            npgsqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(10),
+            errorCodesToAdd: null);
+        }));
+
         // Configuracao da Autenthicação JWT
         services.AddScoped<IAuthService, AuthService>();
 
