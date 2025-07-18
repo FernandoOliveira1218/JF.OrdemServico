@@ -11,9 +11,9 @@ public class RabbitMqMessageBus : IMessageBus
     private readonly IConnection _connection;
     private readonly IChannel _channel;
 
-    public RabbitMqMessageBus(IConnection connection)
+    public RabbitMqMessageBus(ConnectionFactory connection)
     {
-        _connection = connection;
+        _connection = connection.CreateConnectionAsync().GetAwaiter().GetResult();
         _channel = _connection.CreateChannelAsync().GetAwaiter().GetResult();
     }
 

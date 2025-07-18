@@ -33,14 +33,14 @@ public static class InfraServiceCollectionExtensions
         services.AddSingleton<IMessageBus, RabbitMqMessageBus>();
 
         var rabbitSection = configuration.GetSection("RabbitMQSettings");
-        var rabbitSettings = new ConnectionFactory()
+        var rabbitFactory = new ConnectionFactory()
         {
             HostName = rabbitSection["Host"] ?? "localhost",
             UserName = rabbitSection["UserName"] ?? "guest",
             Password = rabbitSection["Password"] ?? "guest"
         };
 
-        services.AddSingleton(rabbitSettings.CreateConnectionAsync().GetAwaiter().GetResult());
+        services.AddSingleton(rabbitFactory);
 
         // Repositórios
         services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
