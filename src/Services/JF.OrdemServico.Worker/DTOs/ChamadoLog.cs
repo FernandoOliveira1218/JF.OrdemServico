@@ -4,8 +4,9 @@ using System.Text.Json.Serialization;
 
 namespace JF.OrdemServico.Worker.DTOs;
 
-public class ChamadoLog : EntityBase
+public class ChamadoLog
 {
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     public string Descricao { get; set; } = null!;
 

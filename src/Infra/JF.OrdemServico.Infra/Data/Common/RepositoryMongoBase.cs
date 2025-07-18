@@ -1,11 +1,10 @@
-﻿using JF.OrdemServico.Domain.Common;
-using JF.OrdemServico.Domain.Interfaces.Repositories;
+﻿using JF.OrdemServico.Domain.Interfaces.Repositories;
 using JF.OrdemServico.Infra.Data.Context;
 using MongoDB.Driver;
 
 namespace JF.OrdemServico.Infra.Data.Common;
 
-public abstract class RepositorioMongoBase<T> : IRepositoryBase<T> where T : EntityBase
+public abstract class RepositorioMongoBase<T> : IRepositoryBase<T> where T : class
 {
     protected readonly IMongoCollection<T> _collection;
 
@@ -40,7 +39,8 @@ public abstract class RepositorioMongoBase<T> : IRepositoryBase<T> where T : Ent
 
     public virtual async Task UpdateAsync(T entidade)
     {
-        var filter = Builders<T>.Filter.Eq("Id", entidade.Id);
-        await _collection.ReplaceOneAsync(filter, entidade);
+        //var filter = Builders<T>.Filter.Eq("Id", entidade.Id);
+        //await _collection.ReplaceOneAsync(filter, entidade);
+        await Task.CompletedTask;
     }
 }
