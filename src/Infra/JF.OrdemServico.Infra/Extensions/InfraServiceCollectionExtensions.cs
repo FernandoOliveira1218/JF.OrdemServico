@@ -47,9 +47,7 @@ public static class InfraServiceCollectionExtensions
         services.AddScoped<IChamadoRepository, ChamadoRepository>();
         services.AddScoped<IClienteRepository, ClienteRepository>();
         services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-
-        services.AddScoped<IChamadoLogRepository, ChamadoLogRepository>();
-
+        
         return services;
     }
 }
