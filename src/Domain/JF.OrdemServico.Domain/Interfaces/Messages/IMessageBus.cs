@@ -4,5 +4,5 @@ public interface IMessageBus
 {
     Task PublishAsync(string queue, object message);
 
-    Task ConsumirAsync(string queue, Func<object, Task> handler);
+    Task ConsumirAsync<T>(string queue, Func<object?, Task> handler);
 }

@@ -1,21 +1,20 @@
-﻿using JF.OrdemServico.Domain.Entities;
-using JF.OrdemServico.Domain.Interfaces.Repositories;
-using JF.OrdemServico.Domain.ValueObjects;
+﻿using JF.OrdemServico.Domain.ValueObjects;
 using JF.OrdemServico.Infra.Data.Common;
 using JF.OrdemServico.Infra.Data.Context;
+using JF.OrdemServico.Worker.DTOs;
 using MongoDB.Driver;
 
-namespace JF.OrdemServico.Infra.Data.Repositories;
+namespace JF.OrdemServico.Worker.Repositories;
 
-public class ChamadoLogRepository : RepositorioMongoBase<Chamado>, IChamadoRepository
+public class ChamadoLogRepository : RepositorioMongoBase<ChamadoLog>, IChamadoLogRepository
 {
     public ChamadoLogRepository(MongoContext context) : base(context, "Chamados")
     {
     }
 
-    public async Task<IEnumerable<Chamado>> BuscarPorFiltrosAsync(ChamadoStatus? status, ChamadoPrioridade? prioridade, Guid? clienteId)
+    public async Task<IEnumerable<ChamadoLog>> BuscarPorFiltrosAsync(ChamadoStatus? status, ChamadoPrioridade? prioridade, Guid? clienteId)
     {
-        var builder = Builders<Chamado>.Filter;
+        var builder = Builders<ChamadoLog>.Filter;
         var filtro = builder.Empty;
 
         if (status != null)
