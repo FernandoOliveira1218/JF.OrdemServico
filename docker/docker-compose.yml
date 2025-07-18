@@ -37,6 +37,7 @@ services:
     build:
       context: ..                  # raiz do projeto
       dockerfile: docker/api.Dockerfile
+    restart: always
     ports:
       - "5000:80"
       - "5001:443"
@@ -50,7 +51,20 @@ services:
       - postgres_prod
       - mongodb_prod
       - rabbitmq_prod
-        
+  worker_prod:
+    container_name: ordemservico_worker_prod
+    build:
+      context: ..                  # raiz do projeto
+      dockerfile: docker/worker.Dockerfile
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    networks:
+      - ordemservico_net
+    depends_on:
+      - postgres_prod
+      - mongodb_prod
+      - rabbitmq_prod
 networks:
   ordemservico_net:
     driver: bridge
