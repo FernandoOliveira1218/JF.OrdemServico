@@ -31,7 +31,7 @@ public class ChamadoWorker : BackgroundService
                 if (chamado is null) return;
 
                 using var scope = _scopeFactory.CreateScope();
-                var repository = scope.ServiceProvider.GetRequiredService<IChamadoRepository>();
+                var repository = scope.ServiceProvider.GetRequiredService<IChamadoLogRepository>();
 
                 await repository.AddAsync(chamado);
             }

@@ -7,7 +7,7 @@ using MongoDB.Driver;
 
 namespace JF.OrdemServico.Infra.Data.Repositories;
 
-public class ChamadoLogRepository : RepositorioMongoBase<Chamado>, IChamadoRepository
+public class ChamadoLogRepository : RepositorioMongoBase<Chamado>, IChamadoLogRepository
 {
     public ChamadoLogRepository(MongoContext context) : base(context, "Chamados")
     {
