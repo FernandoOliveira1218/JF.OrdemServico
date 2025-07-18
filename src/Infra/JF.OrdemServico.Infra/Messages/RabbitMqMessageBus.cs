@@ -27,7 +27,7 @@ public class RabbitMqMessageBus : IMessageBus
         await _channel.BasicPublishAsync(exchange: "", routingKey: queue, body: body);
     }
 
-    public async Task ConsumirAsync(string queue, Func<object, Task> handler)
+    public async Task ConsumirAsync<T>(string queue, Func<object?, Task> handler)
     {
         await _channel.QueueDeclareAsync(queue: queue, durable: true, exclusive: false, autoDelete: false, arguments: null);
 
@@ -35,13 +35,28 @@ public class RabbitMqMessageBus : IMessageBus
 
         consumer.ReceivedAsync += async (_, ea) =>
         {
-            await handler(ea);
+            try
+            {
+                var json = Encoding.UTF8.GetString(ea.Body.ToArray());
 
-            await _channel.BasicAckAsync(deliveryTag: ea.DeliveryTag, multiple: false);
+                var message = JsonSerializer.Deserialize<T>(json);
+
+                await handler(message);
+
+                await _channel.BasicAckAsync(deliveryTag: ea.DeliveryTag, multiple: false);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro no processamento da mensagem: {ex.Message}");
+
+                // Reenfileira a mensagem para tentar processar depois
+                await _channel.BasicNackAsync(deliveryTag: ea.DeliveryTag, multiple: false, requeue: true);
+            }
         };
 
         await _channel.BasicConsumeAsync(queue: queue, autoAck: false, consumer: consumer);
     }
+
 
     public void Dispose()
     {
