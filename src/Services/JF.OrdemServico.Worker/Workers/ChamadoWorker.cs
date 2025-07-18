@@ -1,9 +1,6 @@
-﻿using JF.OrdemServico.Domain.Entities;
-using JF.OrdemServico.Domain.Interfaces.Messages;
-using JF.OrdemServico.Domain.Interfaces.Repositories;
-using RabbitMQ.Client.Events;
-using System.Text;
-using System.Text.Json;
+﻿using JF.OrdemServico.Domain.Interfaces.Messages;
+using JF.OrdemServico.Worker.DTOs;
+using JF.OrdemServico.Worker.Repositories;
 
 namespace JF.OrdemServico.Worker.Workers;
 
@@ -20,29 +17,19 @@ public class ChamadoWorker : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        await _messageBus.ConsumirAsync("chamado-finalizado", async (ea) =>
+        await _messageBus.ConsumirAsync<ChamadoLog>("chamado.finalizado", async chamado =>
         {
-            try
+            if (chamado == null)
             {
-                var body = (ea as BasicDeliverEventArgs)?.Body ?? default;
-                var json = Encoding.UTF8.GetString(body.ToArray());
-
-                var chamado = JsonSerializer.Deserialize<Chamado>(json);
-                if (chamado is null) return;
-
-                using var scope = _scopeFactory.CreateScope();
-                var repository = scope.ServiceProvider.GetRequiredService<IChamadoLogRepository>();
-
-                await repository.AddAsync(chamado);
+                return;
             }
-            catch (Exception ex)
-            {
-                // TODO: log ou tratamento de erro
-                Console.WriteLine($"Erro no worker: {ex.Message}");
-            }
+
+            using var scope = _scopeFactory.CreateScope();
+            var repository = scope.ServiceProvider.GetRequiredService<IChamadoLogRepository>();
+
+            await repository.AddAsync((ChamadoLog)chamado);
         });
 
-        // Aguarda indefinidamente enquanto o worker escuta mensagens
         await Task.CompletedTask;
     }
 }

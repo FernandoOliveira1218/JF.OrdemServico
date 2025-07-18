@@ -1,8 +1,6 @@
-﻿using BCrypt.Net;
-using JF.OrdemServico.Domain.Entities;
+﻿using JF.OrdemServico.Domain.Entities;
 using JF.OrdemServico.Domain.Interfaces.Repositories;
 using JF.OrdemServico.Domain.Interfaces.Services;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
