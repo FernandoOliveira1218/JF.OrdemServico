@@ -11,6 +11,8 @@ services:
       - "5432:5432"
     volumes:
       - pgdata_prod:/var/lib/postgresql/data
+    networks:
+      - ordemservico_net
 
   mongodb_prod:
     image: mongo:7
@@ -20,6 +22,8 @@ services:
       - "27017:27017"
     volumes:
       - mongodata_prod:/data/db
+    networks:
+      - ordemservico_net
 
   rabbitmq_prod:
     image: rabbitmq:3-management
@@ -31,6 +35,8 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin
+    networks:
+      - ordemservico_net
 
   api_prod:
     container_name: ordemservico_api_prod
