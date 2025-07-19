@@ -66,7 +66,7 @@ Esse comando cria um container temporário com o .NET SDK, instala a ferramenta 
 
 ### 4. Verifique se a aplicação está rodando
 
-* Acesse a API Swagger: [http://localhost:5000/swagger](http://localhost:5000/swagger)
+* Acesse a API Swagger: [http://localhost:5000](http://localhost:5000)
 * Acesse a interface administrativa do RabbitMQ: [http://localhost:15672](http://localhost:15672)
   Usuário: `admin`
   Senha: `admin`
