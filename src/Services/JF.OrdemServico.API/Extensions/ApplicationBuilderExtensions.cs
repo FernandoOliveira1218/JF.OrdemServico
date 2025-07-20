@@ -6,7 +6,7 @@ public static class ApplicationBuilderExtensions
 {
     public static IApplicationBuilder UseAppConfiguration(this IApplicationBuilder app)
     {
-        //var env = app.ApplicationServices.GetRequiredService<IWebHostEnvironment>();
+        var env = app.ApplicationServices.GetRequiredService<IWebHostEnvironment>();
         //if (env.IsDevelopment())
         //{
             app.UseSwagger();
@@ -19,7 +19,10 @@ public static class ApplicationBuilderExtensions
 
         app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-        app.UseHttpsRedirection();
+        if (env.IsProduction())
+        {
+            app.UseHttpsRedirection();
+        }
 
         app.UseCors("AllowAll");
 
